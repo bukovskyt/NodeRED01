@@ -1,0 +1,379 @@
+[
+    {
+        "id": "f6f2187d.f17ca8",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "tab_weather",
+        "type": "tab",
+        "label": "Weather API",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "ui_tab_weather",
+        "type": "ui_tab",
+        "name": "Weather Dashboard",
+        "icon": "dashboard",
+        "order": 1
+    },
+    {
+        "id": "ui_group_weather",
+        "type": "ui_group",
+        "name": "Weather Station",
+        "tab": "ui_tab_weather",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "2743d3c69b5bbfd8",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "c775d5703f33b470",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 360,
+        "y": 260,
+        "wires": [
+            [
+                "a5e960811a4c32fe"
+            ]
+        ]
+    },
+    {
+        "id": "a5e960811a4c32fe",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "inject_weather",
+        "type": "inject",
+        "z": "tab_weather",
+        "name": "Trigger every 30s",
+        "props": [],
+        "repeat": "30",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "x": 140,
+        "y": 100,
+        "wires": [
+            [
+                "http_weather"
+            ]
+        ]
+    },
+    {
+        "id": "http_weather",
+        "type": "http request",
+        "z": "tab_weather",
+        "name": "Get Weather Data",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://89.221.223.46:8080/weather_api",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 350,
+        "y": 100,
+        "wires": [
+            [
+                "function_split",
+                "ba117134c15848b5",
+                "3d6506d09db091ea",
+                "c88f67a7fda34740",
+                "2f8beb387504c1dc"
+            ]
+        ]
+    },
+    {
+        "id": "function_split",
+        "type": "function",
+        "z": "tab_weather",
+        "name": "Split T and P",
+        "func": "// vytvoření dvou samostatných zpráv\nlet msgTemp = {\n    payload: msg.payload.T\n};\n\nlet msgPress = {\n    payload: msg.payload.P\n};\n\nreturn [msgTemp, msgPress];",
+        "outputs": 2,
+        "noerr": 0,
+        "x": 580,
+        "y": 100,
+        "wires": [
+            [
+                "gauge_temp"
+            ],
+            [
+                "gauge_press"
+            ]
+        ]
+    },
+    {
+        "id": "gauge_temp",
+        "type": "ui_gauge",
+        "z": "tab_weather",
+        "name": "Temperature",
+        "group": "ui_group_weather",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Teplota (°C)",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": "-20",
+        "max": "40",
+        "colors": [
+            "#00bfff",
+            "#00ff00",
+            "#ff0000"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 820,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "gauge_press",
+        "type": "ui_gauge",
+        "z": "tab_weather",
+        "name": "Pressure",
+        "group": "ui_group_weather",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Tlak (hPa)",
+        "label": "hPa",
+        "format": "{{value}}",
+        "min": "900",
+        "max": "1050",
+        "colors": [
+            "#00ff00",
+            "#ffff00",
+            "#ff0000"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 810,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "ba117134c15848b5",
+        "type": "debug",
+        "z": "tab_weather",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 300,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "3d6506d09db091ea",
+        "type": "debug",
+        "z": "tab_weather",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload.D",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 500,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "c88f67a7fda34740",
+        "type": "debug",
+        "z": "tab_weather",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload.F",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "2f8beb387504c1dc",
+        "type": "ui_gauge",
+        "z": "tab_weather",
+        "name": "",
+        "group": "ui_group_weather",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Síla větru",
+        "label": "units",
+        "format": "{{payload.F}}",
+        "min": 0,
+        "max": 10,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 580,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "fac6af4099bca85d",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-dashboard": "3.6.6"
+        }
+    }
+]
